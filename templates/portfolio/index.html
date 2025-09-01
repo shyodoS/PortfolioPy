@@ -772,6 +772,60 @@
 
 </script>
 
+<script>
+// Menu mobile toggle
+document.addEventListener('DOMContentLoaded', function() {
+  // Criar botão hamburger
+  const menuToggle = document.createElement('button');
+  menuToggle.classList.add('menu-toggle');
+  menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+  document.body.appendChild(menuToggle);
+  
+  const nav = document.querySelector('.nav');
+  const header = document.querySelector('.header');
+  
+  // Alternar menu
+  menuToggle.addEventListener('click', function() {
+    nav.classList.toggle('active');
+    menuToggle.innerHTML = nav.classList.contains('active') 
+      ? '<i class="fas fa-times"></i>' 
+      : '<i class="fas fa-bars"></i>';
+  });
+  
+  // Fechar menu ao clicar em um link
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('active');
+      menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    });
+  });
+  
+  // Header com scroll
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll <= 0) {
+      header.classList.remove('scroll-up');
+      return;
+    }
+    
+    if (currentScroll > lastScroll && !header.classList.contains('scroll-down')) {
+      // Rolando para baixo
+      header.classList.remove('scroll-up');
+      header.classList.add('scroll-down');
+    } else if (currentScroll < lastScroll && header.classList.contains('scroll-down')) {
+      // Rolando para cima
+      header.classList.remove('scroll-down');
+      header.classList.add('scroll-up');
+    }
+    
+    lastScroll = currentScroll;
+  });
+});
+</script>
+
 
  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 <script src="{% static 'js/terminal.js' %}"></script>

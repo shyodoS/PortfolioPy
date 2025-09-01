@@ -1,1 +1,18 @@
-.vercel
+
+
+if (!(Test-Path .gitignore)) {
+    New-Item .gitignore -ItemType File
+}
+
+# Adicione o conteúdo para ignorar a venv
+Set-Content .gitignore @"
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+staticfiles/
+"@
+
+# Adicione o .gitignore ao commit
+git add .gitignore
